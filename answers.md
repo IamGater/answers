@@ -279,3 +279,201 @@
     webpack --mode production
     webpack --mode development
     ```
+## Верстка
+
+53. **Що таке блокова модель CSS?**  
+    Кожен елемент — прямокутник, що складається з content, padding, border, margin.
+
+54. **Способи центрування блокового контенту по горизонталі та вертикалі**  
+    Горизонтально: `margin: 0 auto`, flex `justify-content: center`.  
+    Вертикально: flex `align-items: center`, grid `place-items: center`.
+
+55. **Підходи у верстці**  
+    Float, Flexbox, CSS Grid, inline-block, позиціонування (absolute, relative, fixed).
+
+56. **Як зробити додаток responsive?**  
+    Media queries, flex/grid, відсоткові ширини, viewport units, max-width.
+
+57. **Принципи семантичної верстки**  
+    Використання тегів за призначенням (`<header>`, `<article>`, `<footer>`), доступність, SEO.
+
+58. **Навіщо потрібні префікси для CSS-властивостей (-webkit-, -moz-)**  
+    Для сумісності зі старими браузерами, що підтримують властивості нестандартно.
+
+59. **Як спростити написання кросбраузерних стилів?**  
+    Використовувати Autoprefixer, normalize.css, CSS reset.
+
+60. **Практичне завдання: прокоментувати та виправити поганий CSS/HTML**  
+    Використовувати семантичні теги, прибрати !important, уникати fixed px, застосувати flex/grid для розташування.
+
+61. **Що таке CSS-препроцесори?**  
+    Sass, LESS, Stylus — додають змінні, міксіни, вкладення, функції для спрощення коду.
+
+## Angular
+
+62. **Основні компоненти фреймворку**  
+    Module, Component, Directive, Service, Pipe, Route.
+
+63. **Компонент vs Директива**  
+    Компонент — UI + логіка. Директива — поведінка елемента або DOM.
+
+64. **Життєвий цикл компонента**  
+    Створення → Ініціалізація → Оновлення → Знищення.
+
+65. **Часто використовувані хуки життєвого циклу компонента**  
+    ngOnInit, ngOnChanges, ngDoCheck, ngAfterViewInit, ngOnDestroy.
+
+66. **Конструктор vs ngOnInit**  
+    Конструктор — ініціалізація залежностей. ngOnInit — логіка після створення компоненту.
+
+67. **Як захистити роут від несанкціонованого доступу**  
+    Route guards (`CanActivate`, `CanLoad`), AuthService.
+
+68. **Що таке Lazy loading і для чого використовується**  
+    Завантаження модулів тільки при необхідності для економії ресурсів.
+
+69. **Призначення RouterOutlet**  
+    Місце для рендерингу компонентів маршруту.
+
+70. **Як компоненти можуть взаємодіяти один з одним**  
+    Input/Output, EventEmitter, сервіси для спільного стану.
+
+71. **Як створити two-way binding властивість для компонента**  
+    Синтаксис `[()]` — `<input [(ngModel)]="property">`.
+
+72. **Типи форм у фреймворку**  
+    Template-driven (NgForm), Reactive (FormGroup/FormControl).
+
+73. **Які стани є у форми**  
+    valid/invalid, touched/untouched, dirty/pristine, pending.
+
+74. **Навіщо потрібні сервіси і як з ними працювати**  
+    Інкапсулюють логіку та стан, використовуються через Dependency Injection.
+
+75. **Що таке singleton-сервіси**  
+    Єдиний екземпляр на весь додаток, забезпечують спільний стан.
+
+76. **Способи оголошення сервісів**  
+    `providedIn: 'root'`, providers у модулі або компоненті.
+
+77. **Для чого потрібні модулі**  
+    Організація коду; кількість залежить від проєкту. Core, Shared, Feature.
+
+78. **Навіщо потрібні shared модулі**  
+    Для повторно використовуваних компонентів, директив, пайпів.
+
+79. **Переваги типізації в TypeScript**  
+    Безпечний код, автодоповнення, перевірка помилок під час компіляції.
+
+80. **Можливості TypeScript для типізації**  
+    Interfaces, Types, Enums, Generics, Tuple.
+
+81. **Інтерфейс vs Клас**  
+    Інтерфейс описує форму даних, клас — реалізацію.
+
+82. **Інтерфейс vs Абстрактний клас**  
+    Інтерфейс — лише сигнатури, абстрактний клас — часткова реалізація.
+
+83. **Інтерфейс vs Тип (type)**  
+    type можна комбінувати, об’єднувати; interface — розширювати.
+
+84. **Що таке RxJS і як використовується у Angular**  
+    Observables для HTTP, forms, event streams; інтегрується з async pipe та HttpClient.
+
+85. **Observable vs Promise**  
+    Observable — багато значень, lazy; Promise — одне значення, eager.
+
+86. **Для чого потрібні Subjects і які їх типи**  
+    Subjects — multicasting Observables. Типи: Subject, BehaviorSubject, ReplaySubject, AsyncSubject.
+
+87. **Кілька послідовних запитів до API через RxJS**  
+    Використання pipe + switchMap/concatMap/mergeMap.
+
+88. **switchMap, concatMap, mergeMap**  
+    switchMap — скасовує попередній, concatMap — послідовно, mergeMap — паралельно.
+
+89. **Як конфігурувати Angular-застосунок**  
+    angular.json, environment.ts, імпорт модулів, providers.
+
+90. **Навіщо потрібні environment-файли**  
+    Різні середовища (dev, prod); не для секретних ключів.
+
+91. **Smart vs Dumb компоненти**  
+    Smart — логіка, state; Dumb — презентація, отримує дані через Input.
+
+92. **NgForm, FormGroup, FormControl**  
+    NgForm — template-driven; FormGroup/FormControl — reactive.
+
+93. **Навіщо потрібен async pipe**  
+    Автоматично підписується на Observable і відписується.
+
+94. **Як стежити за розвитком Angular**  
+    Оф. документація, GitHub, блоги; Misko Hevery.
+
+## React
+
+95. **Класові компоненти**  
+    Мають state та lifecycle methods. `class MyComp extends React.Component {}`
+
+96. **Що зберігати в state, а що передавати через props**  
+    State — локальний стан компонента. Props — дані від батьків.
+
+97. **Хуки**  
+    useState, useEffect, useMemo, useCallback; зручні для функціональних компонентів.
+
+98. **Фрагменти та портали**  
+    Fragments `<></>` — без дод. DOM елемента. Portals — рендер у інший DOM вузол.
+
+99. **Refs**  
+    Доступ до DOM елемента або збереження mutable значень.
+
+100. **Методи життєвого циклу компонента**  
+    componentDidMount, componentDidUpdate, componentWillUnmount.
+
+101. **У якому методі робити запити на сервер**  
+    componentDidMount — після рендеру.
+
+102. **Підписка та відписка від listener**  
+    useEffect або componentWillUnmount; відписка потрібна для уникнення memory leaks.
+
+103. **Досвід роботи з Context**  
+    Глобальний стан, коли props drilling незручний.
+
+104. **Особливість PureComponent**  
+    Оптимізація рендерингу через shallow comparison props/state.
+
+105. **Мемоізовані селектори**  
+    useMemo, reselect; кешують обчислення для оптимізації.
+
+106. **Переваги React**  
+    Компонентна архітектура, Virtual DOM, простота інтеграції.
+
+107. **Чому React швидкий**  
+    Virtual DOM мінімізує реальні маніпуляції з DOM.
+
+108. **Навіщо ключі у списках**  
+    Для відслідковування елементів. Індекси допустимі тільки для статичних списків.
+
+109. **Основна ідея Redux**  
+    Центральний store, unidirectional data flow, predictability.
+
+110. **Робота зі стилями в React**  
+    CSS Modules, styled-components, inline styles, SASS/LESS.
+
+111. **React: бібліотека чи фреймворк**  
+    React — бібліотека UI, не повний фреймворк.
+
+112. **jQuery + React**  
+    Можна, але небажано через прямі маніпуляції DOM.
+
+113. **Codemod**  
+    Скрипти для автоматичного рефакторингу коду React.
+
+114. **Налаштування проєкту з нуля**  
+    Create React App, Vite, Webpack, Babel.
+
+115. **Бібліотеки у зв’язці з React**  
+    React Router, Redux, Recoil, Axios, Styled-components, Material-UI.
+
+116. **Найскладніше реалізувати у React**  
+    Оптимізація рендерингу, складна логіка форм та state management.
