@@ -154,6 +154,7 @@
     `const` — Мають блокову область видимості, не можна перевизначити.
     \
     `var`:
+
     ```js
     if (true) {
       var x = 10;
@@ -254,25 +255,28 @@
 36. **Що таке замикання (closure) і які сценарії його використання?**  
     Функція пам’ятає змінні зовнішньої області навіть після завершення виконання зовнішньої функції.
 
-37. **Приклад із setTimeout (що виведе в консоль і чому)**
+37. **Як ви розумієте замикання? Що буде виведено в консолі в цьому випадку?**\
+    Замикання — це коли функція пам’ятає змінні з місця свого оголошення, навіть якщо зовнішня функція вже завершилась.
 
     ```js
     var f = function () {
       console.log(1);
     };
+
     var execute = function (f) {
       setTimeout(f, 1000);
     };
-    execute(f);
+
+    execute(f); // 2
     f = function () {
       console.log(2);
     };
     ```
 
-    Виведе 1, бо в момент виклику execute, f ще дорівнює першій функції.
+    `setTimeout` отримує НЕ копію функції, а посилання на змінну `f`.
 
-38. **Рекурсія**
-    Функція, що викликає саму себе.
+38. **Що таке рекурсія?**\
+    Рекурсія — це коли функція викликає саму себе.
     Приклад:
 
     ```js
@@ -282,39 +286,46 @@
     }
     ```
 
-39. **this**
-    Контекст виконання — те, на що вказує `this` у момент виклику.
+39. **Що означає ключове слово this?**\
+    `this` — це спеціальне ключове слово в JavaScript, яке посилається на об’єкт, у контексті якого виконується код.
 
     ```js
-    const user = {
-      name: "Danil",
-      sayHi() {
-        console.log(this.name);
+    const car = {
+      brand: "BMW",
+      showBrand() {
+        console.log(this.brand);
       },
     };
+
+    car.showBrand(); // "BMW"
     ```
 
-40. **Втрата контексту**
-    Виникає, коли метод передають як callback:
+40. **Що таке втрата контексту, коли відбувається і як їй запобігти?**\
+    Втрата контексту — це ситуація, коли функція викликається не тим способом, як очікувалось, і тому this більше не вказує на потрібний об’єкт. Відбувається при передачі метода як `callback`, присвоєнні методу в іншу зміну, використанні звичайної функції всередині `callback`. Щоб запобігти можна використати `bind`, стрілочну функцію `() => this.name`, Викликати метод через об’єкт `setTimeout(() => obj.show(), 1000);`.
+    Приклад:
 
     ```js
     const obj = {
-      num: 5,
-      print() {
-        console.log(this.num);
+      x: 10,
+      show() {
+        console.log(this.x);
       },
     };
 
-    setTimeout(obj.print, 1000); // undefined
+    setTimeout(obj.show, 1000); // undefined
     ```
 
     Вирішення:
 
     ```js
-    setTimeout(obj.print.bind(obj), 1000);
+    setTimeout(obj.show.bind(obj), 1000);
     ```
 
-41. **bind / call / apply**
+41. **Методи функцій bind / call / apply — навіщо і в чому різниця?**\
+    Ці методи дозволяють явно вказати, що буде в this, коли викликається функція.\
+    `call` викликає функцію одразу, передаючи this і аргументи через кому `func.call(obj, arg1, arg2);`.\
+    `apply` Те саме, що call, але аргументи передаються масивом. `func.apply(obj, [arg1, arg2]);`\
+    `bind` повертає нову функцію з назавжди прив’язаним this.
 
     ```js
     function greet(a, b) {
@@ -333,81 +344,136 @@
 
 ## Front-end
 
-42. **DOM**
-    Дерево елементів HTML.
+42. **Що таке DOM?**
 
-    ```js
-    const el = document.querySelector("#box");
-    ```
+    DOM (Document Object Model) — це модель HTML-документа, яка представляє сторінку у вигляді дерева.
 
-43. **async vs defer**
+43. **Порівняйте атрибути підключення скрипту async і defer в HTML-документі.**
+
+    `async` — скрипт завантажується паралельно з HTML, виконується одразу після завантаження, незалежно від HTML.
+
+    `defer` — скрипт завантажується паралельно з HTML, виконується після парсингу HTML, у порядку підключення.
 
     ```html
-    <script src="a.js" async></script>
-    <script src="b.js" defer></script>
+    <script src="index.js" async></script>
+    <script src="app.js" defer></script>
     ```
 
-    async — виконується як тільки завантажився  
-    defer — після повного парсингу HTML
+44. **Яка різниця між властивостями HTML-елементів innerHTML і innerText?**
 
-44. **innerHTML vs innerText**
+    `innerHTML` — повертає весь HTML-код всередині елемента (теги + текст), може вставляти HTML-розмітку, перезаписує весь вміст.
 
-    ```js
-    div.innerHTML = "<b>Bold</b>";
-    div.innerText = "<b>Not bold</b>";
+    `innerText` — повертає тільки текст, який бачить користувач, ігнорує теги, повертає текст з урахуванням CSS-стилів.
+
+    ```html
+    <div id="example"><b>Hello</b> World</div>
+    <script>
+      const e = document.getElementById("example");
+
+      console.log(e.innerHTML); // "<b>Hello</b> World"
+      console.log(e.innerText); // "Hello World"
+    </script>
     ```
 
-45. **Bubbling**
-    Подія іде знизу вверх по DOM.
+45. **Опишіть процес спливання (bubbling) подій у DOM.**\
+     Спливання — це процес, коли подія поширюється від внутрішнього елемента до зовнішнього, спливаючи по дереву DOM до кореневого елемента.
 
-46. **Зупинити bubbling**
+    ```html
+    <div id="parent">
+      <button id="child">Click me</button>
+    </div>
+
+    <script>
+      const parent = document.getElementById("parent");
+
+      parent.addEventListener("click", () => {
+        console.log("Parent clicked");
+      });
+
+      conts child = document.getElementById("child");
+
+      child.addEventListener("click", () => {
+        console.log("Child clicked");
+      });
+    </script>
+    ```
+
+    Принцип роботи:
+
+    1. Користувач взаємодіє з елементом `<button>`.
+
+    2. Подія спочатку трапляється на цьому елементі.
+
+    3. Потім подія поширюється на батьківські елементи, по черзі до document.
+
+46. **Як зупинити спливання (bubbling) події?**
 
     ```js
     event.stopPropagation();
     ```
 
-47. **Зупинити дефолтну дію**
+47. **Як зупинити дефолтну обробку події?**
 
     ```js
     event.preventDefault();
     ```
 
-48. **this у handler'і**
+48. **Чому дорівнює this в обробнику подій (event handler)?**\
+    При додаванні через `addEventListener` `this` завжди посилається на елемент, до якого прикріплено обробник.\
+    Стрілочна функція не має власного `this`, бере його з зовнішнього контексту.
 
-    ```js
-    button.onclick = function () {
-      console.log(this); // button
-    };
+    ```html
+    <button id="btn">Click me</button>
+
+    <script>
+      const btn = document.getElementById("btn");
+
+      btn.addEventListener("click", function (event) {
+        console.log(this); // <button>Click me</button>
+      });
+
+      btn.addEventListener("click", (event) => {
+        console.log(this); // this у зовнішній області видимості
+      });
+    </script>
     ```
 
-49. **LocalStorage / SessionStorage**
+49. **Що таке LocalStorage і SessionStorage? Який максимальний розмір LocalStorage?**\
+    `LocalStorage` — зберігає дані у браузері постійно, навіть після перезавантаження або закриття вкладки, дані зберігаються у форматі ключ–значення.
+
+    `SessionStorage` — зберігає дані тільки під час поточної сесії вкладки, після закриття вкладки дані видаляються.
 
     ```js
     localStorage.setItem("key", "value");
     localStorage.getItem("key");
     ```
 
-50. **Висота блоку / позиція**
+50. **Як отримати висоту блоку? Його положення щодо меж документа?**
+    Висота елемента:
 
     ```js
-    element.offsetHeight;
-    element.getBoundingClientRect();
+    const block = document.getElementById("myBlock");
+
+    console.log(block.offsetHeight); // висота в пікселях
     ```
 
-51. **webpack**
-    Бандлер — збирає модулі в один файл.
-    Приклад config-а:
+    Положення щодо документа:
 
     ```js
-    module.exports = {
-      entry: "./src/index.js",
-      output: { filename: "bundle.js" },
-    };
+    const rect = block.getBoundingClientRect();
+
+    console.log(rect.top); // відстань від верхнього краю вікна браузера
+    console.log(rect.left); // відстань від лівого краю вікна браузера
+    console.log(rect.width); // ширина
+    console.log(rect.height); // висота
     ```
 
-52. **dev vs prod**
-    dev — з sourcemaps і без оптимізації  
-    prod — мінімізація та tree-shaking
+51. **Що таке webpack?**\
+    Webpack дозволяє писати модульний код, а браузеру відправляє оптимізовану збірку для швидкої роботи сайту.
+
+52. **Чим відрізняється dev-збірка від prod?**
+    dev — зручна для розробника, з дебагом і швидкою збіркою.  
+    prod — оптимізована, мінімізована, для кінцевого користувача.
     ```js
     webpack --mode production
     webpack --mode development
